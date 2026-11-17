@@ -27,6 +27,7 @@ import 'package:musify/constants/app_constants.dart';
 import 'package:musify/extensions/l10n.dart';
 import 'package:musify/main.dart' show logger;
 import 'package:musify/services/common_services.dart';
+import 'package:musify/services/import_service.dart';
 import 'package:musify/services/playlist_download_service.dart';
 import 'package:musify/services/playlists_manager.dart';
 import 'package:musify/services/router_service.dart';
@@ -113,8 +114,17 @@ class _LibraryPageState extends State<LibraryPage> {
       }
     }
 
-    return Scaffold(
-      appBar: AppBar(title: Text(context.l10n!.library)),
+ return Scaffold(
+  appBar: AppBar(
+    title: Text(context.l10n!.library),
+    actions: [
+      IconButton(
+        icon: const Icon(Icons.add),
+        tooltip: 'Import from Phone',
+        onPressed: () => importLocalSong(),
+      ),
+    ],
+  ),
       body: AnimatedBuilder(
         animation: Listenable.merge([
           pinnedPlaylistIds,
